@@ -17,6 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.synced_folder "scripts", "/home/vagrant/scripts"
   config.vm.provision "shell", inline: "su - vagrant -c ./scripts/test.sh"
-  config.vm.provision "shell", inline: "/home/vagrant/scripts/provision.sh"
 
+   config.vm.provision "puppet"
+  
 end
