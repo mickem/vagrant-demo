@@ -14,4 +14,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--memory", "4096"]
 	vb.gui = true
   end
+
+  config.vm.synced_folder "scripts", "/home/vagrant/scripts"
+  config.vm.provision "shell", inline: "su - vagrant -c ./scripts/test.sh"
+
 end
