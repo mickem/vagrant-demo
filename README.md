@@ -198,7 +198,76 @@ Step 2
 Step 3
 ------
 
-TODO
+Provisioning things with shell scripts
+
+1. Add a new script (provision.sh)
+
+   Add a new provisoning script to the script folder.
+   Contaning the following:
+   scripts/provision.sh
+   ```
+   #!/bin/sh
+   apt-get install git
+   ```
+   
+2. Clone the previsou script line adding the new:
+
+   ```
+       config.vm.provision "shell", inline: "su - vagrant -c ./scripts/provision.sh"
+   ```
+  
+3. Reprovision the machine
+
+   ```
+   c:\lab\vagrant-demo>vagrant provision
+   ...
+   stdin: is not a tty
+   E: Could not open lock file /var/lib/dpkg/lock - open (13: Permission denied)
+   E: Unable to lock the administration directory (/var/lib/dpkg/), are you root?
+   ```
+   
+   Failed, the previous command was executed as vagrant but installations need root. So no su.
+   
+4. Change vagrant to not su to vagrant user (run as root)
+ 
+   ```
+       config.vm.provision "shell", inline: "/home/vagrant/scripts/provision.sh"
+   ```
+   
+5. Reprovision the machine
+
+   ```
+   After this operation, 15.5 MB of additional disk space will be used.
+   Do you want to continue [Y/n]? Abort.
+   
+   
+   Stderr from the command:
+   
+   stdin: is not a tty
+   ```
+   
+   Failure again!
+   This time it is because apt-get is interactive and asks a question. This forces the script to abort.
+   To solve this we can add -y to apt-get
+   
+5. Add -y to script:
+
+   ```
+   #!/bin/sh
+   apt-get install -y git
+   ```
+
+6. Reprovision the machine
+   ```
+   vagrant provision
+   ```
+
+7. Verify that git works:
+
+   ```
+   vagrant@vagrant:~$ git --version
+   git version 1.7.9.5
+   ```
 
 Step 4
 ------
