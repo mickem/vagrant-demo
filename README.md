@@ -98,11 +98,11 @@ Step 1
    
    |  Key                                  | Value                                               |
    |---------------------------------------|-----------------------------------------------------|
-   | Session > Host name:                  | localhost                                           |
-   | Session > Port:                       | 22                                                  |
-   | Session > Name:                       | vagrant                                             |
-   | Connection > Data > Login             | vagrant                                             |
-   | Connection > SSH > Auth > Private Key | C:\Users\USERID\.vagrant.d\insecure_private_key.ppk |
+   | Session: Host name:                   | localhost                                           |
+   | Session: Port:                        | 22                                                  |
+   | Session: Name:                        | vagrant                                             |
+   | Connection > Data: Login:             | vagrant                                             |
+   | Connection > SSH > Auth: Private Key: | C:\Users\USERID\.vagrant.d\insecure_private_key.ppk |
 
 6. Use putty to ssh into the machine.
 
