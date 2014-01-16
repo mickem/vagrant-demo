@@ -7,9 +7,20 @@ Step 0
 ------
 
 Make sure you have the following installed and configured in your path:
- * putty (full package)
- * tortoisegit (and msysgit)
+ * putty (full package, not just client)
+   * http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html
+ * tortoisegit (and/or msysgit)
+   * https://code.google.com/p/tortoisegit/wiki/Download?tm=2
+   * https://code.google.com/p/msysgit/downloads/list
  * vagrant
+   * http://www.vagrantup.com/downloads.html 
+ * VirtualBox
+   * https://www.virtualbox.org/wiki/Downloads
+
+Please note that putty is not normally in your path so please add it by running (assuming puty is installed in c:\Program Files (x86)\PuTTY:
+```
+PATH=%PATH%;c:\Program Files (x86)\PuTTY
+```
 
 1. Open a command windows and change to an empty directory:
 
