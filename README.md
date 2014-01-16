@@ -272,4 +272,74 @@ Provisioning things with shell scripts
 Step 4
 ------
 
-TODO
+1. Reprovision the machine (again)
+   ```
+   vagrant provision
+   ...
+   Reading package lists...
+   Building dependency tree...
+   Reading state information...
+   git is already the newest version.
+   0 upgraded, 0 newly installed, 0 to remove and 66 not upgraded.
+   ```
+   As you can (maybe) see it installs git again.
+   This is obviously in efficient and problematic.
+   This means we need to take into acount the current state when we create our script.
+   This is difficult(++)
+
+   *Welcome Puppet*
+   
+2. Add a simple puppet script
+   Puppet is (sort of) a DSL so we can add the wollowinf to a file called manifests/default.pp to add git and mc (midnight commander).
+   ```
+   mkdir manifests
+   ```
+   manifests/default.pp
+   ```
+   package { "git": ensure => present }
+   package { "mc": ensure => present }
+   ```
+
+3. Add puppet provisioning and remov our old provisioning script.
+   Repalce:
+   ```
+       config.vm.provision "shell", inline: "/home/vagrant/scripts/provision.sh"
+   ```
+   With:
+   ```
+     config.vm.provision "puppet"
+   ```
+
+4. Provision the machine (again)
+
+   ```
+   vagrant provision
+   ...
+   Shared folders that Puppet requires are missing on the virtual machine.
+   This is usually due to configuration changing after already booting the
+   machine. The fix is to run a `vagrant reload` so that the proper shared
+   folders will be prepared and mounted on the VM.
+   ```
+   Again vagrant rewuires reloading since puppet requires new shared folders.
+   
+5. Reload and reprovision vagrant
+   ```
+   vagrant reload
+   ...
+
+   vagrant provision
+   ...
+   notice: /Stage[main]//Package[mc]/ensure: ensure changed 'purged' to 'present'
+   notice: Finished catalog run in 7.75 seconds
+   ```
+   Su puppet installed "mc" and it took around 7 seconds.
+
+6. Reprovision vagrant
+   ```
+   vagrant provision
+   ...
+   notice: Finished catalog run in 0.03 seconds
+   ```
+   Now we did not re install packages and it went quicker.
+
+
